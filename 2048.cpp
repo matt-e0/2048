@@ -16,7 +16,7 @@ void printBoard(int board[4][4]) {
 
 void down(int board[4][4]) {
     // Slide 
-    for(int i = 0; i<4; i++){
+    for(int i = 0; i<3; i++){
         for(int j = 0; j<4; j++){
             if(board[i][j] != 0 && board[i+1][j] == 0) {
                 board[i+1][j] = board[i][j];
@@ -33,12 +33,20 @@ void down(int board[4][4]) {
             } 
         }
     }
-    //Slide again
-
+    //Slide again 
+    for(int i = 0; i<3; i++){
+        for(int j = 0; j<4; j++){
+            if(board[i][j] != 0 && board[i+1][j] == 0) {
+                board[i+1][j] = board[i][j];
+                board[i][j] = 0;
+            } 
+        }
+    } 
     printBoard(board);
 };
 
 void up(int board[4][4]) {
+    // Slide 
     for(int i = 3; i>0; i--){
         for(int j = 0; j<4; j++){
             if(board[i][j] != 0 && board[i-1][j] == 0) {
@@ -47,12 +55,21 @@ void up(int board[4][4]) {
             } 
         }
     }
-    for(int i = 0; i<4; i++){
+    // Compare neighbour
+    for(int i = 0; i<3; i++){
         for(int j = 0; j<4; j++){
-            if(board[i+1][j] == board[i][j] && board[i][j] != 0 && board[i+1][j] != 0) {
-                //std::cout << "hit, " << board[i][j] << " is now " << board[i][j] * 2 << "\n";
+            if(board[i+1][j] == board[i][j] && board[i][j] != 0) {
                 board[i+1][j] = 0;
                 board[i][j] *= 2;
+            } 
+        }
+    }
+    //Slide again 
+    for(int i = 3; i>0; i--){
+        for(int j = 0; j<4; j++){
+            if(board[i][j] != 0 && board[i-1][j] == 0) {
+                board[i-1][j] = board[i][j];
+                board[i][j] = 0;
             } 
         }
     }
@@ -117,8 +134,8 @@ int main() {
 
     while(exit == false) {
         printBoard(board);
-        down(board);
-        //up(board);
+        //down(board);
+        up(board);
         //left(board);
         //right(board);
         char x;
