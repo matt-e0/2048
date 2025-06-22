@@ -1,5 +1,5 @@
 #include <iostream>
-
+// TEST
 void printBoard(int board[4][4]) {
     for(int i=0; i<4; i++){
         for (int value : board[i]) {
