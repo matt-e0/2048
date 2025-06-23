@@ -226,7 +226,6 @@ void updateBoard(int board[4][4], bool &exit) {
     }
     if (isSpace) {
         // Generate 2 or 4
-        srand(time(0));
         int randomNum = rand() % 100;
         if (randomNum <= 89) {
             bool hasUpdated = false;
@@ -257,6 +256,7 @@ void updateBoard(int board[4][4], bool &exit) {
 
 // Main
 int main() {
+    srand(time(0));
     bool exit = false;
     int  score = 0;
 
