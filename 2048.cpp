@@ -1,6 +1,7 @@
 #include <iostream>
+#include <conio.h>
 
-void printBoard(int board[4][4]) {
+void printBoard(int board[4][4], int score) {
     for(int i=0; i<4; i++){
         for (int value : board[i]) {
             if (value == 0) {
@@ -11,12 +12,10 @@ void printBoard(int board[4][4]) {
         }
         std::cout << "\n";
     }
-    std::cout << "\n";
+    std::cout << "Score: " << score << "\n";
 };
-void incrementScore(int score, int value) {
-    score += value;
-}
-void down(int board[4][4]) {
+
+void down(int board[4][4], int &score) {
     // Slide down
     for (int j = 0; j < 4; j++) { // i represents rows, j represents columns
         for (int i = 2; i >= 0; i--) { // Starting just above the botttom row..
@@ -36,6 +35,7 @@ void down(int board[4][4]) {
             if(board[i-1][j] == board[i][j] && board[i][j] != 0) {
                 board[i-1][j] = 0;
                 board[i][j] *= 2;
+                score += board[i][j];
             } 
         }
     }
@@ -55,7 +55,7 @@ void down(int board[4][4]) {
     //printBoard(board);
 };
 
-void up(int board[4][4]) {
+void up(int board[4][4], int &score) {
     // Slide up
     for (int j = 0; j < 4; j++) {
         for (int i = 1; i <= 3; i++) {
@@ -75,6 +75,7 @@ void up(int board[4][4]) {
             if(board[i+1][j] == board[i][j] && board[i][j] != 0) {
                 board[i+1][j] = 0;
                 board[i][j] *= 2;
+                score += board[i][j];
             } 
         }
     }
@@ -94,7 +95,7 @@ void up(int board[4][4]) {
     //printBoard(board);
 };
 
-void left(int board[4][4]) {
+void left(int board[4][4], int &score) {
     // Slide left
     for (int i = 0; i < 4; i++) {
         for (int j = 1; j <= 3; j++) {
@@ -114,6 +115,7 @@ void left(int board[4][4]) {
             if (board[i][j] == board[i][j + 1] && board[i][j] != 0) {
                 board[i][j] *= 2;
                 board[i][j + 1] = 0;
+                score += board[i][j];
             }
         }
     }
@@ -133,7 +135,7 @@ void left(int board[4][4]) {
     //printBoard(board);
 };
 
-void right(int board[4][4]) {
+void right(int board[4][4], int &score) {
     // Slide left
     for (int i = 0; i < 4; i++) {
         for (int j = 2; j >= 0; j--) {
@@ -153,6 +155,7 @@ void right(int board[4][4]) {
             if (board[i][j] == board[i][j - 1] && board[i][j] != 0) {
                 board[i][j] *= 2;
                 board[i][j - 1] = 0;
+                score += board[i][j];
             }
         }
     }
@@ -172,35 +175,51 @@ void right(int board[4][4]) {
     //printBoard(board);
 };
 
-void updateBoard(int board[4][4]) {
-    srand(time(0));
-    int randomNum = rand() % 100;
-    if (randomNum <= 89) {
-        bool hasUpdated = false;
-        while (hasUpdated == false) {
-                int randRow = rand() % 4;
-                int randColumn = rand() % 4;
-                if (board[randRow][randColumn] == 0) {
-                    board[randRow][randColumn] = 2;
-                    hasUpdated = true;
-                }
+void updateBoard(int board[4][4], bool &exit) {
+    // Check if board is full
+    bool isSpace = false;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (board[i][j] == 0) {
+                isSpace = true;
+            }
+        }
+    }
+    if (isSpace) {
+        // Generate 2 or 4
+        srand(time(0));
+        int randomNum = rand() % 100;
+        if (randomNum <= 89) {
+            bool hasUpdated = false;
+            while (hasUpdated == false) {
+                    int randRow = rand() % 4;
+                    int randColumn = rand() % 4;
+                    if (board[randRow][randColumn] == 0) {
+                        board[randRow][randColumn] = 2;
+                        hasUpdated = true;
+                    }
+            }
+        } else {
+                    bool hasUpdated = false;
+            while (hasUpdated == false) {
+                    int randRow = rand() % 4;
+                    int randColumn = rand() % 4;
+                    if (board[randRow][randColumn] == 0) {
+                        board[randRow][randColumn] = 4;
+                        hasUpdated = true;
+                    }
+            }
         }
     } else {
-                bool hasUpdated = false;
-        while (hasUpdated == false) {
-                int randRow = rand() % 4;
-                int randColumn = rand() % 4;
-                if (board[randRow][randColumn] == 0) {
-                    board[randRow][randColumn] = 4;
-                    hasUpdated = true;
-                }
-        }
+        std::cout << "You lose! Press any key other than w,a,s,d" << "\n";
+        exit = true;
     }
 }
 
 // Test
 int main() {
     bool exit = false;
+    int  score = 0;
 
     int board[4][4] = {
         {0,0,0,0},
@@ -213,22 +232,22 @@ int main() {
 
 
     while(exit == false) {
-        updateBoard(board);
-        printBoard(board);
-        char x;
-        std::cin >> x;
+        updateBoard(board, exit);
+        printBoard(board, score);
+        char x = _getch();
+        //std::cin >> x;
         switch(x) {
             case 'w':
-                up(board);
+                up(board, score);
                 break;
             case 's':
-                down(board);
+                down(board, score);
                 break;
             case 'a':
-            left(board);
+            left(board, score);
                 break;
             case 'd':
-            right(board);
+            right(board, score);
                 break;
             default:
                 exit = true;
