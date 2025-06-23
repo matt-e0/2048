@@ -176,12 +176,15 @@ void right(int board[4][4], int &score) {
 };
 
 void updateBoard(int board[4][4], bool &exit) {
-    // Check if board is full
+    // Check if board is full (or if 2048 has been reached)
     bool isSpace = false;
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (board[i][j] == 0) {
                 isSpace = true;
+            }
+            if (board[i][j] == 2048) {
+                std::cout << "You win! Keep playing or press a key other than w,a,s,d to exit";
             }
         }
     }
