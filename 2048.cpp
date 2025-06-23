@@ -1,13 +1,27 @@
 #include <iostream>
 #include <conio.h>
+#include <iomanip>
+#include <string>
 
 void printBoard(int board[4][4], int score) {
+    // Check largest number for grid spacing
+    int maxVal = 0; 
+    for(int i=0; i<4; i++){
+        for (int j = 0; j < 4; j++) {
+            if (board[i][j] > maxVal) {
+                maxVal = board[i][j];
+            }
+        }
+    }
+    // Determine the required space width
+    int width = (maxVal == 0) ? 1 : std::to_string(maxVal).length() + 1;
+    // Print the board
     for(int i=0; i<4; i++){
         for (int value : board[i]) {
             if (value == 0) {
-                std::cout << "[" << " " << "]" << " ";
+                std::cout << "[" << std::setw(width) << " " << "]" << " ";
             } else {
-                std::cout << "[" << value << "]" << " ";
+                std::cout << "[" << std::setw(width) << value << "]" << " ";
             }
         }
         std::cout << "\n";
@@ -184,7 +198,7 @@ void updateBoard(int board[4][4], bool &exit) {
                 isSpace = true;
             }
             if (board[i][j] == 2048) {
-                std::cout << "You win! Keep playing or press a key other than w,a,s,d to exit";
+                std::cout << "\n" << "You win! Keep playing or press a key other than w,a,s,d to exit" << "\n";
             }
         }
     }
@@ -214,7 +228,7 @@ void updateBoard(int board[4][4], bool &exit) {
             }
         }
     } else {
-        std::cout << "You lose! Press any key other than w,a,s,d" << "\n";
+        std::cout << "\n" << "You lose! Press any key: " << "\n";
         exit = true;
     }
 }
