@@ -18,14 +18,14 @@ void incrementScore(int score, int value) {
 }
 void down(int board[4][4]) {
     // Slide down
-    for (int j = 0; j < 4; j++) {
-        for (int i = 2; i >= 0; i--) {
-            if (board[i][j] != 0) { // Check each cell below current position
+    for (int j = 0; j < 4; j++) { // i represents rows, j represents columns
+        for (int i = 2; i >= 0; i--) { // Starting just above the botttom row..
+            if (board[i][j] != 0) { // Check each cell above current position
                 int k = i;
                 while (k < 3 && board[k+1][j] == 0) {
                     board[k+1][j] = board[k][j];
                     board[k][j] = 0;
-                    k++;
+                    k++; // Slide number
                 }
             }
         }
@@ -172,21 +172,48 @@ void right(int board[4][4]) {
     //printBoard(board);
 };
 
+void updateBoard(int board[4][4]) {
+    srand(time(0));
+    int randomNum = rand() % 100;
+    if (randomNum <= 89) {
+        bool hasUpdated = false;
+        while (hasUpdated == false) {
+                int randRow = rand() % 4;
+                int randColumn = rand() % 4;
+                if (board[randRow][randColumn] == 0) {
+                    board[randRow][randColumn] = 2;
+                    hasUpdated = true;
+                }
+        }
+    } else {
+                bool hasUpdated = false;
+        while (hasUpdated == false) {
+                int randRow = rand() % 4;
+                int randColumn = rand() % 4;
+                if (board[randRow][randColumn] == 0) {
+                    board[randRow][randColumn] = 4;
+                    hasUpdated = true;
+                }
+        }
+    }
+}
+
 // Test
 int main() {
     bool exit = false;
 
     int board[4][4] = {
-        {1,0,0,0},
-        {0,0,0,1},
-        {0,0,1,0},
-        {0,1,1,0}
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
     };
     // printBoard(board);
     
 
 
     while(exit == false) {
+        updateBoard(board);
         printBoard(board);
         char x;
         std::cin >> x;
