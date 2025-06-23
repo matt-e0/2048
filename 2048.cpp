@@ -1,7 +1,13 @@
 #include <iostream>
-#include <conio.h>
 #include <iomanip>
 #include <string>
+
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include <termios.h>
+#include <unistd.h>
+#endif
 
 void printBoard(int board[4][4], int score) {
     // Check largest number for grid spacing
@@ -28,6 +34,22 @@ void printBoard(int board[4][4], int score) {
     }
     std::cout << "Score: " << score << "\n";
 };
+
+char getInput() {
+    #ifdef _WIN32 // Windows
+        return _getch();
+    #else // Linux / Mac
+        struct termios oldt, newt;
+        char ch;
+        tcgetattr(STDIN_FILENO, &oldt);           // Get terminal attributes
+        newt = oldt;
+        newt.c_lflag &= ~(ICANON | ECHO);         // Disable buffered I/O and echo
+        tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Apply changes
+        ch = getchar();
+        tcsetattr(STDIN_FILENO, TCSANOW, &oldt);  // Restore original settings
+        return ch;
+    #endif
+}
 
 void down(int board[4][4], int &score) {
     // Slide down
@@ -233,7 +255,7 @@ void updateBoard(int board[4][4], bool &exit) {
     }
 }
 
-// Test
+// Main
 int main() {
     bool exit = false;
     int  score = 0;
@@ -244,15 +266,12 @@ int main() {
         {0,0,0,0},
         {0,0,0,0}
     };
-    // printBoard(board);
     
-
 
     while(exit == false) {
         updateBoard(board, exit);
         printBoard(board, score);
-        char x = _getch();
-        //std::cin >> x;
+        char x = getInput();
         switch(x) {
             case 'w':
                 up(board, score);
