@@ -13,7 +13,7 @@ void printBoard(int board[4][4], int score) {
     // Check largest number for grid spacing
     int maxVal = 0; 
     for(int i=0; i<4; i++){
-        for (int j = 0; j < 4; j++) {
+        for (int j=0; j<4; j++) {
             if (board[i][j] > maxVal) {
                 maxVal = board[i][j];
             }
@@ -53,8 +53,8 @@ char getInput() {
 
 void down(int board[4][4], int &score) {
     // Slide down
-    for (int j = 0; j < 4; j++) { // i represents rows, j represents columns
-        for (int i = 2; i >= 0; i--) { // Starting just above the botttom row..
+    for (int j=0; j<4; j++) { // i represents rows, j represents columns
+        for (int i=2; i>=0; i--) { // Starting just above the botttom row..
             if (board[i][j] != 0) { // Check each cell above current position
                 int k = i;
                 while (k < 3 && board[k+1][j] == 0) {
@@ -66,8 +66,8 @@ void down(int board[4][4], int &score) {
         }
     }
     // Compare neighbour
-    for(int i = 3; i>0; i--){
-        for(int j = 0; j<4; j++){
+    for(int i=3; i>0; i--){
+        for(int j=0; j<4; j++){
             if(board[i-1][j] == board[i][j] && board[i][j] != 0) {
                 board[i-1][j] = 0;
                 board[i][j] *= 2;
@@ -76,7 +76,7 @@ void down(int board[4][4], int &score) {
         }
     }
     //Slide again 
-    for (int j = 0; j < 4; j++) {
+    for (int j=0; j<4; j++) {
         for (int i = 2; i >= 0; i--) {
             if (board[i][j] != 0) {
                 int k = i;
@@ -93,7 +93,7 @@ void down(int board[4][4], int &score) {
 
 void up(int board[4][4], int &score) {
     // Slide up
-    for (int j = 0; j < 4; j++) {
+    for (int j=0; j<4; j++) {
         for (int i = 1; i <= 3; i++) {
             if (board[i][j] != 0) {
                 int k = i;
@@ -106,8 +106,8 @@ void up(int board[4][4], int &score) {
         }
     }
     // Compare neighbour
-    for(int i = 0; i<3; i++){
-        for(int j = 0; j<4; j++){
+    for(int i=0; i<3; i++){
+        for(int j=0; j<4; j++){
             if(board[i+1][j] == board[i][j] && board[i][j] != 0) {
                 board[i+1][j] = 0;
                 board[i][j] *= 2;
@@ -116,8 +116,8 @@ void up(int board[4][4], int &score) {
         }
     }
     //Slide again 
-    for (int j = 0; j < 4; j++) {
-        for (int i = 1; i <= 3; i++) {
+    for (int j=0; j<4; j++) {
+        for (int i=1; i<=3; i++) {
             if (board[i][j] != 0) {
                 int k = i;
                 while (k > 0 && board[k-1][j] == 0) {
@@ -133,8 +133,8 @@ void up(int board[4][4], int &score) {
 
 void left(int board[4][4], int &score) {
     // Slide left
-    for (int i = 0; i < 4; i++) {
-        for (int j = 1; j <= 3; j++) {
+    for (int i=0; i<4; i++) {
+        for (int j=1; j<=3; j++) {
             if (board[i][j] != 0) { 
                 int k = j;
                 while (k > 0 && board[i][k-1] == 0) {
@@ -146,8 +146,8 @@ void left(int board[4][4], int &score) {
         }
     }
     // Compare neighbour
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 3; j++) {
+    for (int i=0; i<4; i++) {
+        for (int j=0; j< 3; j++) {
             if (board[i][j] == board[i][j + 1] && board[i][j] != 0) {
                 board[i][j] *= 2;
                 board[i][j + 1] = 0;
@@ -156,8 +156,8 @@ void left(int board[4][4], int &score) {
         }
     }
     //Slide again 
-    for (int i = 0; i < 4; i++) {
-        for (int j = 1; j <= 3; j++) {
+    for (int i=0; i<4; i++) {
+        for (int j=1; j<=3; j++) {
             if (board[i][j] != 0) { 
                 int k = j;
                 while (k > 0 && board[i][k-1] == 0) {
@@ -172,9 +172,9 @@ void left(int board[4][4], int &score) {
 };
 
 void right(int board[4][4], int &score) {
-    // Slide left
-    for (int i = 0; i < 4; i++) {
-        for (int j = 2; j >= 0; j--) {
+    // Slide right
+    for (int i=0; i<4; i++) {
+        for (int j=2; j>=0; j--) {
             if (board[i][j] != 0) { 
                 int k = j;
                 while (k < 3 && board[i][k+1] == 0) {
@@ -186,8 +186,8 @@ void right(int board[4][4], int &score) {
         }
     }
     // Compare neighbour
-    for (int i = 0; i < 4; i++) {
-        for (int j = 3; j > 0; j--) {
+    for (int i=0; i<4; i++) {
+        for (int j=3; j>0; j--) {
             if (board[i][j] == board[i][j - 1] && board[i][j] != 0) {
                 board[i][j] *= 2;
                 board[i][j - 1] = 0;
@@ -196,8 +196,8 @@ void right(int board[4][4], int &score) {
         }
     }
     //Slide again 
-    for (int i = 0; i < 4; i++) {
-        for (int j = 2; j >= 0; j--) {
+    for (int i=0; i<4; i++) {
+        for (int j=2; j>=0; j--) {
             if (board[i][j] != 0) { 
                 int k = j;
                 while (k < 3 && board[i][k+1] == 0) {
@@ -211,11 +211,23 @@ void right(int board[4][4], int &score) {
     //printBoard(board);
 };
 
+bool hasMoves(int board[4][4]) { // Checks to see if there are any valid moves when board is full
+    for (int i=0; i<4; ++i) {
+        for (int j=0; j<4; ++j) {
+            if (board[i][j] == 0) return true;
+            if (i < 3 && board[i][j] == board[i+1][j]) return true;
+            if (j < 3 && board[i][j] == board[i][j+1]) return true;
+        }
+    }
+    return false;
+}
+
+
 void updateBoard(int board[4][4], bool &exit) {
     // Check if board is full (or if 2048 has been reached)
     bool isSpace = false;
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
+    for (int i=0; i<4; i++) {
+        for (int j=0; j<4; j++) {
             if (board[i][j] == 0) {
                 isSpace = true;
             }
@@ -249,13 +261,20 @@ void updateBoard(int board[4][4], bool &exit) {
             }
         }
     } else {
-        std::cout << "\n" << "You lose! Press any key: " << "\n";
-        exit = true;
+        if (!isSpace && !hasMoves(board)) {
+            std::cout << "\n" << "You lose! Press any key: " << "\n";
+            exit = true;
+        }
     }
 }
 
 // Main
 int main() {
+    std::cout << "Welcome to my game of 2048, the controls are: " << "\n";
+    std::cout << "      ↑: w" << "\n" << "←: a  ↓: s  →: d" << "\n";
+    std::cout << "Press any key to continue: " << "\n";
+    getInput();
+
     srand(time(0));
     bool exit = false;
     int  score = 0;
