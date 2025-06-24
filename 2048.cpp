@@ -271,7 +271,7 @@ void updateBoard(int board[4][4], bool &exit) {
 // Main
 int main() {
     std::cout << "Welcome to my game of 2048, the controls are: " << "\n";
-    std::cout << "      ↑: w" << "\n" << "←: a  ↓: s  →: d" << "\n";
+    std::cout << "      ^: w" << "\n" << "<-: a  v: s  ->: d" << "\n";
     std::cout << "Press any key to continue: " << "\n";
     getInput();
 
