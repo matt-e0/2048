@@ -8,7 +8,7 @@ This is a console version of the popular game '2048' implemented using C++. It h
 
 ### Installing
 
-Windows users can download the the ZIP and run the .exe.
+Windows users can download the the ZIP and run the .exe. This requires MinGW
 Alternatively, Linux users can run the game by downloading the .cpp file and using the following commands:
 
 ```bash
