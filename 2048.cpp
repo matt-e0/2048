@@ -10,8 +10,8 @@
 #include <unistd.h>
 #endif
 
-void printBoard(int board[4][4], int score) {
-    // Check largest number for grid spacing
+int getMaxWidth(int board[4][4]) {
+        // Check largest number for grid spacing
     int maxVal = 0; 
     for(int i=0; i<4; i++){
         for (int j=0; j<4; j++) {
@@ -22,13 +22,18 @@ void printBoard(int board[4][4], int score) {
     }
     // Determine the required space width
     int width = (maxVal == 0) ? 1 : std::to_string(maxVal).length() + 1;
+    return width;
+}
+
+void printBoard(int board[4][4], int score) {
+
     // Print the board
     for(int i=0; i<4; i++){
         for (int value : board[i]) {
             if (value == 0) {
-                std::cout << "[" << std::setw(width) << " " << "]" << " ";
+                std::cout << "[" << std::setw(getMaxWidth(board)) << " " << "]" << " ";
             } else {
-                std::cout << "[" << std::setw(width) << value << "]" << " ";
+                std::cout << "[" << std::setw(getMaxWidth(board)) << value << "]" << " ";
             }
         }
         std::cout << "\n";
