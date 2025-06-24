@@ -4,6 +4,8 @@
 
 #ifdef _WIN32
 #include <conio.h>
+#include <locale>
+#include <codecvt>
 #else
 #include <termios.h>
 #include <unistd.h>
@@ -270,6 +272,10 @@ void updateBoard(int board[4][4], bool &exit) {
 
 // Main
 int main() {
+    #ifdef _WIN32
+        std::locale::global(std::locale("en_US.UTF-8"));
+        std::wcout.imbue(std::locale());
+    #endif
     std::cout << "Welcome to my game of 2048, the controls are: " << "\n";
     std::cout << "      ^: w" << "\n" << "<-: a  v: s  ->: d" << "\n";
     std::cout << "Press any key to continue: " << "\n";
