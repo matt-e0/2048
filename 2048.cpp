@@ -274,8 +274,9 @@ int main() {
     #ifdef _WIN32
         SetConsoleOutputCP(CP_UTF8);
     #endif
-    std::cout << "Welcome to my game of 2048, the controls are: " << "\n";
-    std::cout << "      ^: w" << "\n" << "<-: a  v: s  ->: d" << "\n";
+    std::cout << "Welcome to my game of 2048, the controls are: " << "\n" << "\n";
+    std::cout << "       ^: W" << "\n" << "<-: A  v: S  ->: D" << "\n" << "\n";
+    std::cout << "All other keys exit the program" << "\n" << "\n";
     std::cout << "Press any key to continue: " << "\n";
     getInput();
 
