@@ -292,7 +292,6 @@ int main() {
         {0,0,0,0}
     };
     
-
     while(exit == false) {
         updateBoard(board, exit);
         printBoard(board, score);
